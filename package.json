@@ -1,0 +1,14 @@
+{
+  "name": "gess-project",
+  "private": true,
+  "version": "0.0.0",
+  "packageManager": "pnpm@10.10.0",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "pnpm -r --filter ./apps/* dev",
+    "build": "pnpm -r --filter ./apps/* build"
+  }
+}

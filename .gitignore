@@ -1,0 +1,6 @@
+# --- Node / PNPM ---
+node_modules/
+
+# --- Env / secrets ---
+.env.example
+
