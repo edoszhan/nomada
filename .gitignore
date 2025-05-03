@@ -3,4 +3,5 @@ node_modules/
 
 # --- Env / secrets ---
 .env.example
+.env.local
 

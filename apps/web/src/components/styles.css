@@ -1,0 +1,44 @@
+.country-select {
+  width: 100%;
+}
+
+.country-select__control {
+  min-height: 42px;
+  border-color: #d1d5db;
+  border-radius: 0.375rem;
+}
+
+.country-select__control--is-focused {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 1px #3b82f6;
+}
+
+.country-select__menu {
+  border-radius: 0.375rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.country-select__option {
+  padding: 8px 12px;
+}
+
+.country-select__option--is-selected {
+  background-color: #3b82f6;
+}
+
+.country-select__option--is-focused {
+  background-color: #e5e7eb;
+}
+
+.country-select__option--is-selected.country-select__option--is-focused {
+  background-color: #3b82f6;
+}
+
+.country-select__single-value {
+  display: flex;
+  align-items: center;
+}
+
+.country-select__placeholder {
+  color: #6b7280;
+} 

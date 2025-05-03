@@ -3,22 +3,21 @@ import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { supabaseBrowser } from '@/utils/supabaseClient';
-import Link from 'next/link';
 
-export default function LoginPage() {
+export default function SignupPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 
-  const handleLogin = async (e: React.FormEvent) => {
+  const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
 
     try {
-      const { error } = await supabaseBrowser().auth.signInWithPassword({
+      const { error } = await supabaseBrowser().auth.signUp({
         email,
         password,
       });
@@ -37,8 +36,8 @@ export default function LoginPage() {
     <div className="min-h-screen bg-white flex items-center justify-center">
       <div className="max-w-md w-full p-8">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold mb-2">Welcome Back</h1>
-          <p className="text-gray-600">Sign in to continue your digital nomad journey</p>
+          <h1 className="text-3xl font-bold mb-2">Create Account</h1>
+          <p className="text-gray-600">Join Nomada to start your digital nomad journey</p>
         </div>
 
         {error && (
@@ -47,7 +46,7 @@ export default function LoginPage() {
           </div>
         )}
 
-        <form onSubmit={handleLogin} className="space-y-6">
+        <form onSubmit={handleSignup} className="space-y-6">
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
               Email
@@ -73,22 +72,22 @@ export default function LoginPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-              placeholder="Enter your password"
+              placeholder="Create a password"
               required
             />
           </div>
 
           <Button type="submit" className="w-full" size="lg" disabled={loading}>
-            {loading ? 'Signing in...' : 'Sign In'}
+            {loading ? 'Creating account...' : 'Sign Up'}
           </Button>
         </form>
 
         <div className="mt-6 text-center">
           <p className="text-sm text-gray-600">
-            Don't have an account?{' '}
-            <Link href="/signup" className="text-blue-600 hover:text-blue-500">
-              Sign up
-            </Link>
+            Already have an account?{' '}
+            <a href="/login" className="text-blue-600 hover:text-blue-500">
+              Sign in
+            </a>
           </p>
         </div>
       </div>
