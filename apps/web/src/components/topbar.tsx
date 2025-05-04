@@ -2,8 +2,27 @@
 'use client';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
+import { useEffect, useState } from 'react';
+import { supabaseBrowser } from '@/utils/supabaseClient';
 
 export default function TopBar() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      const { data: { user } } = await supabaseBrowser().auth.getUser();
+      setIsLoggedIn(!!user);
+    };
+
+    checkAuth();
+
+    const { data: { subscription } } = supabaseBrowser().auth.onAuthStateChange((_event, session) => {
+      setIsLoggedIn(!!session?.user);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
   return (
     <header className="w-full flex items-center justify-between py-4 px-6 bg-white shadow-sm">
       {/* Logo */}
@@ -21,12 +40,25 @@ export default function TopBar() {
 
       {/* Right actions */}
       <div className="flex gap-4">
-        <Button variant="outline" asChild>
-          <Link href="/login">Log in</Link>
-        </Button>
-        <Button asChild>
-          <Link href="/book-demo">Book&nbsp;Demo</Link>
-        </Button>
+        {isLoggedIn ? (
+          <>
+            <Button variant="outline" asChild>
+              <Link href="/dashboard">Dashboard</Link>
+            </Button>
+            <Button asChild>
+              <Link href="/profile">Profile</Link>
+            </Button>
+          </>
+        ) : (
+          <>
+            <Button variant="outline" asChild>
+              <Link href="/login">Log in</Link>
+            </Button>
+            <Button asChild>
+              <Link href="/book-demo">Book&nbsp;Demo</Link>
+            </Button>
+          </>
+        )}
       </div>
     </header>
   );

@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { supabaseBrowser } from '@/utils/supabaseClient';
 import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { Play } from 'lucide-react';
 
 interface UserProfile {
   id: string;
@@ -11,10 +13,31 @@ interface UserProfile {
   joined_at: string | null;
 }
 
+interface Workflow {
+  id: string;
+  name: string;
+  description: string;
+  status: 'idle' | 'running' | 'completed' | 'error';
+}
+
 export default function DashboardPage() {
   const [user, setUser] = useState<any>(null);
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
+  const [workflows, setWorkflows] = useState<Workflow[]>([
+    {
+      id: '1',
+      name: 'Travel Planning Assistant',
+      description: 'AI-powered travel planning workflow that helps you find the best destinations, accommodations, and activities based on your preferences.',
+      status: 'idle'
+    },
+    {
+      id: '2',
+      name: 'Document Processing',
+      description: 'Automated document processing workflow that handles visa applications, passport renewals, and other travel-related paperwork.',
+      status: 'idle'
+    }
+  ]);
   const router = useRouter();
 
   useEffect(() => {
@@ -49,6 +72,27 @@ export default function DashboardPage() {
     router.push('/login');
   };
 
+  const startWorkflow = async (workflowId: string) => {
+    // Update the workflow status
+    setWorkflows(workflows.map(w => 
+      w.id === workflowId ? { ...w, status: 'running' } : w
+    ));
+
+    try {
+      // TODO: Call n8n webhook to start the workflow
+      // For now, we'll just simulate a delay
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      
+      setWorkflows(workflows.map(w => 
+        w.id === workflowId ? { ...w, status: 'completed' } : w
+      ));
+    } catch (error) {
+      setWorkflows(workflows.map(w => 
+        w.id === workflowId ? { ...w, status: 'error' } : w
+      ));
+    }
+  };
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -69,7 +113,39 @@ export default function DashboardPage() {
               </div>
             </div>
 
-            <div className="flex gap-4">
+            <div className="space-y-6">
+              <h2 className="text-xl font-semibold">Available Workflows</h2>
+              {workflows.map((workflow) => (
+                <div key={workflow.id} className="bg-white border rounded-lg p-4 shadow-sm">
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <h3 className="text-lg font-medium">{workflow.name}</h3>
+                      <p className="text-gray-600 mt-1">{workflow.description}</p>
+                      <div className="mt-2">
+                        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                          workflow.status === 'idle' ? 'bg-gray-100 text-gray-800' :
+                          workflow.status === 'running' ? 'bg-blue-100 text-blue-800' :
+                          workflow.status === 'completed' ? 'bg-green-100 text-green-800' :
+                          'bg-red-100 text-red-800'
+                        }`}>
+                          {workflow.status.charAt(0).toUpperCase() + workflow.status.slice(1)}
+                        </span>
+                      </div>
+                    </div>
+                    <Button
+                      onClick={() => startWorkflow(workflow.id)}
+                      disabled={workflow.status === 'running'}
+                      className="ml-4"
+                    >
+                      <Play className="w-4 h-4 mr-2" />
+                      Start
+                    </Button>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="flex gap-4 mt-6">
               <Link href="/profile" className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700">
                 Edit Profile
               </Link>
