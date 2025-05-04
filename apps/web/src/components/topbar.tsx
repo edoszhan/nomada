@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { useEffect, useState } from 'react';
 import { supabaseBrowser } from '@/utils/supabaseClient';
+import Image from 'next/image';
 
 export default function TopBar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -26,10 +27,12 @@ export default function TopBar() {
   return (
     <header className="w-full flex items-center justify-between py-4 px-6 bg-white shadow-sm">
       {/* Logo */}
-      <Link href="/about" className="text-xl font-bold tracking-tight">
+      {/* <Link href="/about" className="text-xl font-bold tracking-tight">
         Nomada
+      </Link> */}
+      <Link href="/">
+        <Image src="/logo.svg" alt="Nomada" width={100} height={100} />
       </Link>
-
       {/* Center nav */}
       <nav className="hidden md:flex gap-6 text-sm font-medium">
         <Link href="/about">About</Link>
@@ -51,12 +54,12 @@ export default function TopBar() {
           </>
         ) : (
           <>
-            <Button variant="outline" asChild>
-              <Link href="/login">Log in</Link>
-            </Button>
-            <Button asChild>
-              <Link href="/book-demo">Book&nbsp;Demo</Link>
-            </Button>
+        <Button variant="outline" asChild>
+          <Link href="/login">Log in</Link>
+        </Button>
+        <Button asChild>
+          <Link href="/book-demo">Book&nbsp;Demo</Link>
+        </Button>
           </>
         )}
       </div>

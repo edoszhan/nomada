@@ -79,8 +79,13 @@ export default function DashboardPage() {
     ));
 
     try {
-      // TODO: Call n8n webhook to start the workflow
-      // For now, we'll just simulate a delay
+      // For Travel Planning Assistant, redirect to survey
+      if (workflowId === '1') {
+        router.push('/survey');
+        return;
+      }
+
+      // For other workflows, handle normally
       await new Promise(resolve => setTimeout(resolve, 2000));
       
       setWorkflows(workflows.map(w => 
