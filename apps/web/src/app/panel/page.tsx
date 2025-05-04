@@ -1,5 +1,6 @@
 'use client';
-import { useState, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import Split from 'split.js';
 import { motion } from 'framer-motion';
 
 const AGENTS = [
@@ -29,28 +30,58 @@ const AGENTS = [
   },
 ];
 
+const AI_MESSAGES = [
+  "Hello, I am Nomada, your AI assistant. How can I help you today?",
+  "These are cities that match your criteria and passport. Any specific preferences you'd like to add?",
+  "Here's plan for your stay in Bangkok, Thailand (June-October). You can easily make any changes or let me know if you'd like assistance. Additionally, you can book hotels and other services directly from here."
+];
+
 export default function PanelPage() {
   const [messages, setMessages] = useState([
-    { from: 'system', text: 'These cities fit your profile! Any specific preferences you\'d like to add?' }
+    { from: 'ai', text: AI_MESSAGES[0] }
   ]);
   const [input, setInput] = useState('');
+  const [aiStep, setAiStep] = useState(0);
   const chatEndRef = useRef<HTMLDivElement>(null);
+
+  // Split.js setup
+  useEffect(() => {
+    Split(['#left-sheet', '#right-sheet'], {
+      sizes: [50, 50],
+      minSize: 200,
+      gutterSize: 8,
+      cursor: 'col-resize',
+    });
+  }, []);
+
+  // Scroll to bottom on new message
+  useEffect(() => {
+    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
 
   const handleSend = () => {
     if (!input.trim()) return;
-    setMessages([...messages, { from: 'user', text: input }]);
+    setMessages(prev => [...prev, { from: 'user', text: input }]);
     setInput('');
     setTimeout(() => {
-      chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-    }, 100);
+      // Simulate AI response based on step
+      if (aiStep < AI_MESSAGES.length - 1) {
+        setMessages(prev => [...prev, { from: 'ai', text: AI_MESSAGES[aiStep + 1] }]);
+        setAiStep(aiStep + 1);
+      }
+    }, 800);
   };
 
   return (
     <div className="flex min-h-screen bg-gray-50">
-      {/* Left: Chat */}
-      <div className="flex flex-col flex-1 border-r bg-white max-w-[50vw] min-w-[350px]">
+      {/* Left: Chat Sheet */}
+      <div
+        id="left-sheet"
+        className="flex flex-col border-r bg-white min-w-[200px] max-w-[70vw] h-screen"
+        style={{ height: '100vh' }}
+      >
         <div className="flex items-center px-6 py-4 border-b bg-gray-100">
-          <span className="font-bold text-lg">New User</span>
+          <span className="font-bold text-lg">AI Assistant</span>
         </div>
         <div className="flex-1 overflow-y-auto px-6 py-4 space-y-4">
           {messages.map((msg, idx) => (
@@ -97,8 +128,12 @@ export default function PanelPage() {
         </form>
       </div>
 
-      {/* Right: Agents */}
-      <div className="flex-1 flex flex-col bg-gray-50 p-8 overflow-y-auto">
+      {/* Right: Agents Sheet */}
+      <div
+        id="right-sheet"
+        className="flex-1 flex flex-col bg-gray-50 p-8 overflow-y-auto min-w-[200px]"
+        style={{ height: '100vh' }}
+      >
         <h2 className="text-xl font-bold mb-6">Recommended Cities</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {AGENTS.map((agent, idx) => (
