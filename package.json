@@ -10,5 +10,12 @@
   "scripts": {
     "dev": "pnpm -r --filter ./apps/* dev",
     "build": "pnpm -r --filter ./apps/* build"
+  },
+  "dependencies": {
+    "axios": "^1.9.0",
+    "react-date-range": "^2.0.1"
+  },
+  "devDependencies": {
+    "@types/react-date-range": "^1.4.10"
   }
 }
