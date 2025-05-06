@@ -64,7 +64,7 @@ export default function TeamPage() {
           <li>Developed time-tracker for healthcare</li>
         </ul>
       ),
-      image: "/bay.jpg",
+      image: "/bay.png",
       linkedin: "https://www.linkedin.com/in/tuvshinbayar-erdenesaikhan-1018a6266/"
     }
   ];
