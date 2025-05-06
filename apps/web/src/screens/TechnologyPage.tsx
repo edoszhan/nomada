@@ -3,12 +3,23 @@ import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 
 export default function TechnologyPage() {
-  const steps = [
-    { label: "Webhook", color: "bg-pink-500" },
-    { label: "Edit Fields", color: "bg-blue-500" },
-    { label: "AI Agent", color: "bg-green-500" },
-    { label: "OpenAI", color: "bg-gray-800" },
-    { label: "Respond", color: "bg-purple-500" },
+
+  const wizards = [
+    {
+      img: '/original-bot.png',   // 400×260 transparent PNGs in /public/bots
+      title: 'Travel Planning Assistant',
+      text:  'Find destinations, build itineraries and book essentials in minutes.',
+    },
+    {
+      img: '/green-bot.jpg',
+      title: 'Document Processing',
+      text:  'Automate visas, passport renewals and other paperwork—no stress.',
+    },
+    {
+      img: '/yellow-bot.jpg',
+      title: 'Social Interactions',
+      text:  'Stay on top of your habits, forums and trip prep with one dashboard.',
+    },
   ];
 
   return (
@@ -21,70 +32,79 @@ export default function TechnologyPage() {
           </p>
         </div>
 
-        {/* --- Diagram Section --- */}
-        <div className="flex flex-col md:flex-row items-center justify-center gap-12 mb-16">
-          {/* Image version (for investors, demo, etc.) */}
-          <div className="hidden md:block">
-            <Image
-              src="/workflow1.jpg"
-              alt="Workflow Diagram"
-              width={500}
-              height={300}
-              className="rounded-lg shadow-lg"
-            />
-          </div>
-          {/* SVG/JSX diagram for web */}
-          <div className="flex-1 flex flex-col items-center md:items-start">
-            <div className="flex items-center gap-8">
-              {steps.map((step, idx) => (
-                <div key={step.label} className="flex flex-col items-center">
-                  <div className={`w-16 h-16 rounded-full flex items-center justify-center text-white text-xl font-bold shadow-lg ${step.color}`}>
-                    {step.label[0]}
-                  </div>
-                  <span className="mt-2 text-sm font-semibold text-gray-700">{step.label}</span>
-                  {idx < steps.length - 1 && (
-                    <div className="w-12 h-1 bg-gray-300 mx-2 my-2 rounded-full"></div>
-                  )}
-                </div>
-              ))}
+        {/* ---------- Wizards overview ---------- */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-24">
+          {wizards.map((w) => (
+            <div
+              key={w.title}
+              className="flex flex-col items-center text-center bg-blue-50 rounded-2xl p-6 shadow hover:shadow-lg transition"
+            >
+              <Image
+                src={w.img}
+                alt={w.title}
+                width={160}
+                height={100}
+                className="mb-4"
+              />
+              <h3 className="text-xl font-semibold mb-2 text-blue-900">
+                {w.title}
+              </h3>
+              <p className="text-gray-700 leading-relaxed">{w.text}</p>
             </div>
-          </div>
+          ))}
         </div>
 
-        {/* --- n8n Explanation Section --- */}
+        {/* ---------- Workflow 1 & 2 diagrams ---------- */}
+        <div className="flex flex-col md:flex-row items-center justify-center gap-12 mb-16">
+          {/* Workflow 1 */}
+          <Image
+            src="/workflow1.jpg"
+            alt="Workflow 1 Diagram"
+            width={500}
+            height={300}
+            className="rounded-lg shadow-lg"
+          />
+
+          {/* Workflow 2 */}
+          <Image
+            src="/workflow2.jpg"
+            alt="Workflow 2 Diagram"
+            width={500}
+            height={300}
+            className="rounded-lg shadow-lg"
+          />
+        </div>
+
+        <p className="mt-4 text-lg text-gray-500 text-center italic mb-12 ">
+          Figure&nbsp;1.&nbsp;End‑to‑end automation flow connecting user input to actionable results via n8n and AI agents.
+        </p>
+
+        <br></br>
+
+        {/* ---------- n8n explanation ---------- */}
         <div className="bg-blue-50 rounded-lg p-8 shadow mb-12">
           <h2 className="text-2xl font-bold mb-4 text-blue-800">Why n8n?</h2>
           <p className="text-lg text-gray-700 mb-2">
-            <b>n8n</b> is the backbone of our automation. It orchestrates the entire workflow, connecting user input, data enrichment, and AI-powered decision making. Here's what n8n does in our system:
+            <b>n8n</b> is the backbone of our automation. It orchestrates the entire
+            workflow—connecting user input, data enrichment and AI‑powered decision making.
           </p>
           <ul className="list-disc pl-6 text-gray-700 space-y-2">
-            <li>
-              <b>Receives user data</b> via secure webhooks, ensuring privacy and real-time processing.
-            </li>
-            <li>
-              <b>Enriches and validates</b> the data, preparing it for intelligent analysis.
-            </li>
-            <li>
-              <b>Coordinates AI agents</b> (like OpenAI) to generate personalized travel plans, answer questions, and automate complex tasks.
-            </li>
-            <li>
-              <b>Integrates with external services</b> (e.g., booking, compliance, notifications) for a seamless user experience.
-            </li>
-            <li>
-              <b>Returns results instantly</b> to the user, closing the loop with actionable insights and next steps.
-            </li>
+            <li><b>Receives user data</b> via secure webhooks.</li>
+            <li><b>Enriches &amp; validates</b> the data for analysis.</li>
+            <li><b>Coordinates AI agents</b> like OpenAI for personalised output.</li>
+            <li><b>Integrates external services</b> for booking, compliance and alerts.</li>
+            <li><b>Returns results instantly</b>, closing the loop for the user.</li>
           </ul>
           <p className="mt-4 text-gray-700">
-            This modular, no-code approach means we can rapidly adapt, scale, and integrate new features—making our platform robust, future-proof, and highly attractive to both users and investors.
+            This modular, low‑code approach lets us adapt and scale rapidly—making our
+            platform robust, future‑proof and highly attractive to users and investors.
           </p>
         </div>
 
         <div className="text-center">
-          <Button size="lg" className="mt-4">
-            Get Started
-          </Button>
+          <Button size="lg" className="mt-4">Get Started</Button>
         </div>
       </section>
     </div>
   );
-} 
+}

@@ -27,7 +27,7 @@ export default function TeamPage() {
         </ul>
       ),
       image: "/nett.jpg",
-      linkedin: "https://www.linkedin.com/in/edoszhan/"
+      linkedin: "https://www.linkedin.com/in/passavee/"
     },
     {
       name: "DaeHyun Kim",
@@ -38,8 +38,8 @@ export default function TeamPage() {
           <li>Tsinghua University X-lab startup summer camp</li>
         </ul>
       ),
-      image: "/daehyun.jpg",
-      linkedin: "https://www.linkedin.com/in/edoszhan/"
+      image: "/daehyun-linkedin.jpeg",
+      linkedin: "https://www.linkedin.com/in/daehyun-kim-b83433357/"
     },
     {
       name: "Gookhee Shin",
@@ -51,8 +51,8 @@ export default function TeamPage() {
           <li>Internship for comparing organoids and tissues using bioinformatics</li>
         </ul>
       ),
-      image: "/gookhee.jpg",
-      linkedin: "https://www.linkedin.com/in/edoszhan/"
+      image: "/gookhee-linkedin.jpeg",
+      linkedin: "https://www.linkedin.com/in/gookhee-shin-0b9658318/"
     },
     {
       name: "Erdenesaikhan Tuvshinbayar",
@@ -65,7 +65,7 @@ export default function TeamPage() {
         </ul>
       ),
       image: "/bay.jpg",
-      linkedin: "https://www.linkedin.com/in/edoszhan/"
+      linkedin: "https://www.linkedin.com/in/tuvshinbayar-erdenesaikhan-1018a6266/"
     }
   ];
 

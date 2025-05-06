@@ -36,6 +36,12 @@ export default function DashboardPage() {
       name: 'Document Processing',
       description: 'Automated document processing workflow that handles visa applications, passport renewals, and other travel-related paperwork.',
       status: 'idle'
+    },
+    {
+      id: '3',
+      name: 'Social Interactions',
+      description: 'Community, habits, project progress and forum in one place.',
+      status: 'idle'
     }
   ]);
   const router = useRouter();
@@ -88,6 +94,12 @@ export default function DashboardPage() {
       // For Document Processing, redirect to panel2
       if (workflowId === '2') {
         router.push('/panel2');
+        return;
+      }
+
+      // For Social Interactions, redirect to panel3
+      if (workflowId === '3') {
+        router.push('/panel3');
         return;
       }
 
