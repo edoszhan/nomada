@@ -85,6 +85,12 @@ export default function DashboardPage() {
         return;
       }
 
+      // For Document Processing, redirect to panel2
+      if (workflowId === '2') {
+        router.push('/panel2');
+        return;
+      }
+
       // For other workflows, handle normally
       await new Promise(resolve => setTimeout(resolve, 2000));
       
