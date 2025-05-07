@@ -83,6 +83,20 @@ export default function LoginPage() {
           </Button>
         </form>
 
+        <div className="mt-6 p-4 bg-gray-100 rounded-md text-center">
+          <p className="text-sm text-gray-700">
+            <strong>DEMO:</strong> You can use the following credentials to try out the product:<br />
+            Email: <span className="font-mono">edoszhan@kaist.ac.kr</span><br />
+            Password: <span className="font-mono">nomada02</span>
+          </p>
+        </div>
+
+        <div className="mt-4 p-4 bg-blue-50 rounded-md text-center">
+          <p className="text-sm text-blue-700">
+            <strong>Instructions:</strong> After logging in, go to the Dashboard and start any of the 3 Workflows to explore the product.
+          </p>
+        </div>
+
         <div className="mt-6 text-center">
           <p className="text-sm text-gray-600">
             Don't have an account?{' '}

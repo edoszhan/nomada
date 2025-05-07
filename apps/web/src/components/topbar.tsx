@@ -54,12 +54,12 @@ export default function TopBar() {
           </>
         ) : (
           <>
-        <Button variant="outline" asChild>
-          <Link href="/login">Log in</Link>
-        </Button>
-        <Button asChild>
-          <Link href="/book-demo">Book&nbsp;Demo</Link>
-        </Button>
+            <Button variant="outline" asChild>
+              <Link href="/login">Log in</Link>
+            </Button>
+            <Button asChild>
+              <Link href="/book-demo">Book&nbsp;Demo</Link>
+            </Button>
           </>
         )}
       </div>
